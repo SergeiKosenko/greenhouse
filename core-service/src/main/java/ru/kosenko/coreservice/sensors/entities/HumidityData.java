@@ -1,4 +1,4 @@
-package ru.kosenko.greenhouse.sensors.entities;
+package ru.kosenko.coreservice.sensors.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,18 +12,18 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "temperatures_data")
-public class TemperaturesData {
+@Table(name = "humidity_data")
+public class HumidityData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "temperatures_id")
-    private Long temperaturesId;
+    @Column(name = "humidity_id")
+    private Long humidityId;
 
-    @Column(name = "temperature")
-    private Float temperature;
+    @Column(name = "humidity")
+    private Float humidity;
 
     @CreationTimestamp
     @Column(name = "recorded_at")
