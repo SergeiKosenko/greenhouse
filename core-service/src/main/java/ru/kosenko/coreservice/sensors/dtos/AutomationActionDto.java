@@ -9,4 +9,5 @@ public class AutomationActionDto {
     private Boolean doorOpen;
     private Boolean windowOpen;
     private Boolean wateringOn;
+    private Boolean heaterOn;
 }

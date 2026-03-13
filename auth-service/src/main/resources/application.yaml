@@ -1,0 +1,31 @@
+server:
+  port: 8888
+  servlet:
+    context-path: /auth
+location: img
+spring:
+  flyway:
+    table: flyway_schema_history_auth
+    baseline-on-migrate: true
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:file:./data/greenhouse;MODE=PostgreSQL;AUTO_SERVER=TRUE
+#    url: jdbc:h2:file://localhost:8888/greenhouse;MODE=PostgreSQL
+    #    url: jdbc:h2:mem:greenhouse;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+  jpa:
+    show-sql: true
+#      hibernate:
+#          ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: false
+jwt:
+  secret: __SRIuywdqoiey7acefnfYTl;k^$%^&io_+)_9&5674@fcbnBJKLHilknmKGFD$W56u--
+  lifetime: 36000

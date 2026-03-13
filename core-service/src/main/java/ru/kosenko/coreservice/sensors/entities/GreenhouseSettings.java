@@ -28,6 +28,10 @@ public class GreenhouseSettings {
     private Float minHumidityPct;
     private Float maxHumidityPct;
 
+    // Температура подогрева
+    private Float tempTurnOnHeater;
+    private Float tempTurnOffHeater;
+
     // Расписание
     private LocalTime wateringStartTime;
     private Integer wateringIntervalHours;
@@ -37,6 +41,7 @@ public class GreenhouseSettings {
     private Boolean windowOpen = false;
     private Boolean doorOpen = false;
     private Boolean wateringOn = false;
+    private Boolean heaterOn = false;
 
     private LocalDateTime lastWateringTime;
     private Boolean isAutoMode = true;

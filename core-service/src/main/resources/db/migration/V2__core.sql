@@ -9,6 +9,9 @@ create table greenhouse
 insert into greenhouse (title)
 values ('Теплица с помидорами'),
        ('Теплица с перцами'),
+       ('Грядка огурцы'),
+       ('Грядка арбузы'),
+       ('Грядка капуста'),
        ('датчик температуры на улице');
 
 create table temperatures
@@ -23,7 +26,7 @@ CREATE INDEX idx_temperatures_greenhouse_id ON temperatures(greenhouse_id);
 insert into temperatures (greenhouse_id, name)
 values (1, 'Температура помидоры'),
        (2, 'Температура перец'),
-       (3, 'Температура улица');
+       (6, 'Температура на улице');
 
 CREATE TABLE humidity (
                           id bigserial PRIMARY KEY,
@@ -38,9 +41,9 @@ values (1, 'Влажность 1'),
        (1, 'Влажность 3'),
        (1, 'Влажность 4'),
        (2, 'Влажность 1'),
-       (2, 'Влажность 2'),
-       (2, 'Влажность 3'),
-       (2, 'Влажность 4');
+       (3, 'Влажность 2'),
+       (4, 'Влажность 3'),
+       (5, 'Влажность 4');
 
 CREATE INDEX idx_humidity_greenhouse_id ON humidity(greenhouse_id);
 
@@ -61,3 +64,12 @@ CREATE TABLE humidity_data (
 );
 
 CREATE INDEX idx_humidity_data_sid_time ON humidity_data(humidity_id, recorded_at DESC);
+
+CREATE TABLE temperaturedoor_data (
+                               id BIGSERIAL PRIMARY KEY,
+                               temperatures_id INTEGER NOT NULL REFERENCES temperatures(id) ON DELETE CASCADE,
+                               temperaturedoor NUMERIC(5, 2) NOT NULL,
+                               recorded_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX idx_temperaturedoor_data_sid_time ON temperaturedoor_data(temperatures_id, recorded_at DESC);
