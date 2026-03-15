@@ -9,14 +9,14 @@ import java.time.LocalTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "greenhouse_settings")
-public class GreenhouseSettings {
+@Table(name = "green_house_settings")
+public class GreenHouseSettings {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "greenhouse_id", unique = true)
-    private Long greenhouseId;
+    @Column(name = "green_house_id", unique = true)
+    private Long greenHouseId;
 
     // Температура
     private Float tempOpenWindow;

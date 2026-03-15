@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.kosenko.coreservice.sensors.dtos.SensorDataDto;
 import ru.kosenko.coreservice.sensors.dtos.AutomationActionDto;
-import ru.kosenko.coreservice.sensors.entities.GreenhouseSettings;
+import ru.kosenko.coreservice.sensors.entities.GreenHouseSettings;
 import ru.kosenko.coreservice.sensors.services.SensorService;
 
 @RestController
@@ -19,12 +19,12 @@ public class SensorController {
     public AutomationActionDto receiveData(@RequestBody SensorDataDto dataDto) {
         return sensorService.processData(dataDto);
     }
-    @PutMapping("/settings/{greenhouseId}")
-    public ResponseEntity<GreenhouseSettings> updateSettings(
-            @PathVariable Long greenhouseId,
-            @RequestBody GreenhouseSettings newSettings) {
+    @PutMapping("/settings/{greenHouseId}")
+    public ResponseEntity<GreenHouseSettings> updateSettings(
+            @PathVariable Long greenHouseId,
+            @RequestBody GreenHouseSettings newSettings) {
 
-        return ResponseEntity.ok(sensorService.updateGreenhouseSettings(greenhouseId, newSettings));
+        return ResponseEntity.ok(sensorService.updateGreenHouseSettings(greenHouseId, newSettings));
     }
 
 }

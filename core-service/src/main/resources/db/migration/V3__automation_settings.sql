@@ -1,8 +1,8 @@
-DROP TABLE IF EXISTS greenhouse_settings CASCADE;
+DROP TABLE IF EXISTS green_house_settings CASCADE;
 
-CREATE TABLE greenhouse_settings (
+CREATE TABLE green_house_settings (
                                      id BIGSERIAL PRIMARY KEY,
-                                     greenhouse_id INTEGER NOT NULL UNIQUE REFERENCES greenhouse(id) ON DELETE CASCADE,
+                                     green_house_id INTEGER NOT NULL UNIQUE REFERENCES green_house(id) ON DELETE CASCADE,
 
     -- Температурные пороги (Форточки и Двери)
                                      temp_open_window NUMERIC(4, 2) DEFAULT 25.00,
@@ -20,9 +20,9 @@ CREATE TABLE greenhouse_settings (
                                      max_humidity_pct NUMERIC(4, 2) DEFAULT 65.00, -- Порог выключения
 
     -- Полив: Расписание (Периодичность)
-                                     watering_start_time TIME DEFAULT '06:00:00',  -- Время первого полива
-                                     watering_interval_hours INTEGER DEFAULT 24,    -- Интервал (24 = раз в сутки, 8 = трижды)
-                                     watering_duration_min INTEGER DEFAULT 20,      -- Сколько минут лить воду
+                                     watering_start_time TIME DEFAULT '08:00:00',  -- Время первого полива
+                                     watering_interval_hours INTEGER DEFAULT 8,    -- Интервал (24 = раз в сутки, 8 = трижды)
+                                     watering_duration_min INTEGER DEFAULT 60,      -- Сколько минут лить воду
 
     -- Текущие состояния и метаданные
                                      window_open BOOLEAN DEFAULT false,
@@ -36,7 +36,7 @@ CREATE TABLE greenhouse_settings (
 );
 
 -- Начальные данные (Теплицы 1, 2 и грядок)
-INSERT INTO greenhouse_settings (greenhouse_id, watering_start_time, watering_interval_hours, temp_turn_on_heater, temp_turn_off_heater)
+INSERT INTO green_house_settings (green_house_id, watering_start_time, watering_interval_hours, temp_turn_on_heater, temp_turn_off_heater)
 VALUES
     (1, '06:00:00', 4, 5.00, 10.00),
     (2, '06:00:00', 1, 5.00, 10.00),

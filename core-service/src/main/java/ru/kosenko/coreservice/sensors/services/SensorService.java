@@ -5,11 +5,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.kosenko.coreservice.sensors.dtos.AutomationActionDto;
 import ru.kosenko.coreservice.sensors.dtos.SensorDataDto;
-import ru.kosenko.coreservice.sensors.entities.GreenhouseSettings;
+import ru.kosenko.coreservice.sensors.entities.GreenHouseSettings;
 import ru.kosenko.coreservice.sensors.entities.HumidityData;
 import ru.kosenko.coreservice.sensors.entities.TemperaturesData;
 import ru.kosenko.coreservice.sensors.entities.TemperaturesDoorData;
-import ru.kosenko.coreservice.sensors.repositories.GreenhouseSettingsRepository;
+import ru.kosenko.coreservice.sensors.repositories.GreenHouseSettingsRepository;
 import ru.kosenko.coreservice.sensors.repositories.HumidityDataRepository;
 import ru.kosenko.coreservice.sensors.repositories.TemperaturesDataRepository;
 import ru.kosenko.coreservice.sensors.repositories.TemperaturesDoorDataRepository;
@@ -20,7 +20,7 @@ public class SensorService {
     private final TemperaturesDataRepository tempRepo;
     private final TemperaturesDoorDataRepository tempDoorRepo;
     private final HumidityDataRepository humRepo;
-    private final GreenhouseSettingsRepository settingsRepo;
+    private final GreenHouseSettingsRepository settingsRepo;
 
     @Transactional
     public AutomationActionDto processData(SensorDataDto dto) {
@@ -32,8 +32,8 @@ public class SensorService {
 //                .orElseThrow(() -> new RuntimeException("Объект не найден"));
 
         // 2. Получаем настройки автоматики
-        GreenhouseSettings settings = settingsRepo.findByGreenhouseId(dto.getGreenhouseId())
-                .orElseThrow(() -> new RuntimeException("Настройки не найдены для теплицы: " + dto.getGreenhouseId()));
+        GreenHouseSettings settings = settingsRepo.findByGreenHouseId(dto.getGreenHouseId())
+                .orElseThrow(() -> new RuntimeException("Настройки не найдены для теплицы: " + dto.getGreenHouseId()));
 
         // 3. Если это УЛИЦА (OUTDOOR) — возвращаем "все выключено"
         if ("OUTDOOR".equalsIgnoreCase(dto.getType())) {
@@ -70,7 +70,7 @@ public class SensorService {
         }
     }
 
-    private void updateAutomationState(GreenhouseSettings s, SensorDataDto dto) {
+    private void updateAutomationState(GreenHouseSettings s, SensorDataDto dto) {
         if ("TEMP".equalsIgnoreCase(dto.getType())) {
             // Управление проветриванием
             if (dto.getValue() >= s.getTempOpenWindow()) s.setWindowOpen(true);
@@ -97,11 +97,11 @@ public class SensorService {
     }
 
     @Transactional
-    public GreenhouseSettings updateGreenhouseSettings(Long greenhouseId, GreenhouseSettings incoming) {
-        GreenhouseSettings existing = settingsRepo.findByGreenhouseId(greenhouseId)
-                .orElse(new GreenhouseSettings()); // Создаем новые, если нет
+    public GreenHouseSettings updateGreenHouseSettings(Long greenHouseId, GreenHouseSettings incoming) {
+        GreenHouseSettings existing = settingsRepo.findByGreenHouseId(greenHouseId)
+                .orElse(new GreenHouseSettings()); // Создаем новые, если нет
 
-        existing.setGreenhouseId(greenhouseId);
+        existing.setGreenHouseId(greenHouseId);
         existing.setTempOpenWindow(incoming.getTempOpenWindow());
         existing.setTempCloseWindow(incoming.getTempCloseWindow());
         existing.setTempOpenDoor(incoming.getTempOpenDoor());

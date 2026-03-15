@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "temperaturedoor_data")
+@Table(name = "temperature_door_data")
 public class TemperaturesDoorData {
 
         @Id
@@ -23,7 +23,7 @@ public class TemperaturesDoorData {
         @Column(name = "temperatures_id")
         private Long temperaturesId;
 
-        @Column(name = "temperaturedoor")
+        @Column(name = "temperature_door")
         private Float temperature;
 
         @CreationTimestamp

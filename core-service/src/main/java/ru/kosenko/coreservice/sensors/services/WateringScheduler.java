@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import ru.kosenko.coreservice.sensors.entities.GreenhouseSettings;
-import ru.kosenko.coreservice.sensors.repositories.GreenhouseSettingsRepository;
+import ru.kosenko.coreservice.sensors.entities.GreenHouseSettings;
+import ru.kosenko.coreservice.sensors.repositories.GreenHouseSettingsRepository;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -14,7 +14,7 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class WateringScheduler {
-    private final GreenhouseSettingsRepository settingsRepo;
+    private final GreenHouseSettingsRepository settingsRepo;
 
     @Scheduled(cron = "0 * * * * *") // Запуск каждую минуту в 00 секунд
     @Transactional
@@ -22,9 +22,9 @@ public class WateringScheduler {
         LocalDateTime now = LocalDateTime.now();
         LocalTime currentTime = now.toLocalTime().withSecond(0).withNano(0);
 
-        List<GreenhouseSettings> allSettings = settingsRepo.findAll();
+        List<GreenHouseSettings> allSettings = settingsRepo.findAll();
 
-        for (GreenhouseSettings s : allSettings) {
+        for (GreenHouseSettings s : allSettings) {
             if (s.getWateringStartTime() == null || !Boolean.TRUE.equals(s.getIsAutoMode())) continue;
 
             // 1. Проверяем, наступило ли время начала полива (с учетом интервала)
@@ -45,7 +45,7 @@ public class WateringScheduler {
         }
     }
 
-    private boolean isItTimeBySchedule(GreenhouseSettings s, LocalTime current) {
+    private boolean isItTimeBySchedule(GreenHouseSettings s, LocalTime current) {
         LocalTime start = s.getWateringStartTime();
         int interval = s.getWateringIntervalHours();
 
